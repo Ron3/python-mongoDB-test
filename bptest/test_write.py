@@ -8,6 +8,9 @@ Create On 2019-12-18
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
 
+import traceback
+
+
 from bptest import common
 from bptest import conf
 
@@ -36,6 +39,7 @@ class TestWrite(object):
             print(doc)
             return 0
         except:
+            traceback.print_exc()
             return 0
 
 
@@ -44,6 +48,7 @@ class TestWrite(object):
         :return:
         """
         self.maxId = self._ReadMaxId()
+        print ("self.maxId ==> ", self.maxId)
 
 
 
