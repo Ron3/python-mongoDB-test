@@ -6,7 +6,7 @@ Create On 2019-12-18
 """
 
 import sys, os
-sys.path.append(os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
+sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
 
 import pymongo
 from bptest import conf
@@ -28,7 +28,9 @@ class TestRead(object):
         开始测试
         :return:
         """
-        self.col.find()
+        result = self.col.find()
+        for doc in result:
+            print(doc)
 
 
 

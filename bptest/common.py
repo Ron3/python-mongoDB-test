@@ -15,7 +15,7 @@ def createDBConnection() -> (pymongo.mongo_client or None):
     :return:
     """
 
-    uri = "mongodb://{username}:{password}@{host}:{port}/{db_name}?authMechanism=MONGODB-CR".format(username=conf.DB_USER,
+    uri = "mongodb://{username}:{password}@{host}:{port}/{db_name}?authMechanism=SCRAM-SHA-256".format(username=conf.DB_USER,
                                                                                                     password=conf.DB_PORT,
                                                                                                     host=conf.DB_HOST,
                                                                                                     port=conf.DB_PORT,

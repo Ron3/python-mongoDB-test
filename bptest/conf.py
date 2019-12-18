@@ -9,7 +9,7 @@ Create On 2019-12-18
 DB_HOST = "localhost"
 DB_PORT = 27017
 
-DB_USER = "Ron"
+DB_USER = "ron"
 DB_PWD = "123456"
 
 DB_NAME = "rontest"
