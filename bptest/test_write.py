@@ -24,6 +24,7 @@ class TestWrite(object):
         """
         self.client = common.createDBConnection()
         self.db = self.client[conf.DB_NAME]
+        self.doc = self.db[conf.DB_NAME]
         self.maxId = 0
 
 
@@ -34,7 +35,10 @@ class TestWrite(object):
         :return:
         """
         try:
-            cur = self.db.find({"_id": 0})
+            cur = self.doc.find({"_id": 0})
+            if cur.count() <= 0:
+                return 0
+
             doc = cur[0]
             print(doc)
             return 0
@@ -49,6 +53,13 @@ class TestWrite(object):
         """
         self.maxId = self._ReadMaxId()
         print ("self.maxId ==> ", self.maxId)
+
+        self.maxId += 1
+        # self.doc.insert({"_id": self.maxId, "title": "Ron"})
+        # self.doc.insert({"_id": 0, "maxId": self.maxId})
+        self.doc.replace_one(filter={"_id": self.maxId}, replacement={"_id": self.maxId, "title": "Ron"})
+        self.doc.replace_one(filter={"_id": 0}, replacement={"_id": 0, "maxId": self.maxId})
+        
 
 
 
