@@ -5,7 +5,7 @@ Create On 2019-12-26
 @author: Ron2
 """
 
-
+import pymongo
 from bptest import common
 
 
@@ -54,10 +54,16 @@ class TestCreateDB(object):
 
 
         # 获取最大值 -1 表示最大, 1表示最小
-        result= table.find({"_id": {"$exists": True}}, sort=[("_id", -1)])[0]
+        result= table.find({"peopleId": {"$exists": True}}, sort=[("_id", -1)])[0]
         print(type(result), result)
 
 
+        # 尝试获取索引
+
+        # table.create_index([("peopleId", pymongo.ASCENDING)])
+        table.create_index([("peopleId", pymongo.ASCENDING)], unique=True)
+        index = table.index_information()
+        print("index ==> ", index, type(index))
 
 
 
