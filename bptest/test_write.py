@@ -59,7 +59,7 @@ class TestWrite(object):
         # self.doc.insert({"_id": 0, "maxId": self.maxId})
         self.doc.replace_one(filter={"_id": self.maxId}, replacement={"_id": self.maxId, "title": "Ron"})
         self.doc.replace_one(filter={"_id": 0}, replacement={"_id": 0, "maxId": self.maxId})
-        
+
 
 
 

@@ -24,6 +24,21 @@ def createDBConnection() -> (pymongo.mongo_client or None):
 
 
 
+def createDBConnection_defaultDB() -> (pymongo.mongo_client or None):
+    """
+    创建数据库连接
+    :return:
+    """
+
+    uri = "mongodb://{username}:{password}@{host}:{port}/?authMechanism=SCRAM-SHA-256".format(username=conf.DB_USER,
+                                                                                                    password=conf.DB_PWD,
+                                                                                                    host=conf.DB_HOST,
+                                                                                                    port=conf.DB_PORT)
+    return pymongo.MongoClient(uri)
+
+
+
+
 
 
 
