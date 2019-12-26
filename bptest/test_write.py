@@ -22,11 +22,10 @@ class TestWrite(object):
     def __init__(self):
         """
         """
-        self.client = common.createDBConnection()
-        self.db = self.client[conf.DB_NAME]
-        self.doc = self.db[conf.DB_NAME]
-        self.maxId = 0
-
+        self.client = common.createDBConnection_defaultDB()
+        self.db = self.client[conf.USER_DB_NAME]
+        self.collection = self.db[conf.USER_DB_BP_USER_COLLECTION]
+        self.maxId = ""
 
 
     def _ReadMaxId(self):
@@ -34,17 +33,10 @@ class TestWrite(object):
         读取最大的Id
         :return:
         """
-        try:
-            cur = self.doc.find({"_id": 0})
-            if cur.count() <= 0:
-                return 0
-
-            doc = cur[0]
-            print(doc)
-            return 0
-        except:
-            traceback.print_exc()
-            return 0
+        maxIdDic = self.collection.find_one({"peopleId": {"$exists": True}}, sort=[("_id", -1)])
+        print ("maxIdDic ==> ", maxIdDic)
+        peopleId = maxIdDic.get("peopleId")
+        return peopleId
 
 
     def start(self):
@@ -54,11 +46,12 @@ class TestWrite(object):
         self.maxId = self._ReadMaxId()
         print ("self.maxId ==> ", self.maxId)
 
-        self.maxId += 1
-        # self.doc.insert({"_id": self.maxId, "title": "Ron"})
-        # self.doc.insert({"_id": 0, "maxId": self.maxId})
-        self.doc.replace_one(filter={"_id": self.maxId}, replacement={"_id": self.maxId, "title": "Ron"})
-        self.doc.replace_one(filter={"_id": 0}, replacement={"_id": 0, "maxId": self.maxId})
+        # self.maxId += 1
+        # # self.doc.insert({"_id": self.maxId, "title": "Ron"})
+        # # self.doc.insert({"_id": 0, "maxId": self.maxId})
+        # self.collection.replace_one(filter={"_id": self.maxId}, replacement={"_id": self.maxId, "title": "Ron"})
+        self.collection.replace_one(filter={"peopleId": self.maxId}, replacement={"peopleId": self.maxId, "maxId": self.maxId + "0"})
+
 
 
 
